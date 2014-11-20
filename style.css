@@ -1,0 +1,123 @@
+body {
+	bgcolor: white;
+	font-size: 90%;
+	font-family: Arial, Helvetica, sans-serif
+}
+
+h1 {
+	font-size: 200%;
+	font-weight: bold
+}
+
+h2 {
+	font-size: 100%;
+	font-weight: bold;
+	text-transform: uppercase
+}
+
+h3 {
+	font-size: 100%;
+	font-weight: normal
+}
+
+h4 {
+	font-size: 100%;
+	font-style: oblique;
+	font-weight: normal
+}
+
+hr {
+	line-height: 2px;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 10px
+}
+
+div.title {
+	color: white;
+	background-color: #13e04d;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px
+}
+
+div.title h1 {
+	text-transform: uppercase;
+	margin-top: 0;
+	margin-bottom: 0
+}
+
+div.menu {
+	color: black;
+	background-color: #2badd1;
+	padding: 0 10px 10px;
+	width: 9em;
+	float: left;
+	clear: none;
+	overflow: hidden
+}
+
+div.menu p {
+	font-weight: bold;
+	text-transform: uppercase;
+	list-style-type: none;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 10px
+}
+
+div.menu h2 {
+	margin-top: 10px;
+	margin-bottom: 0;
+	text-transform: uppercase;
+}
+
+div.main {
+	color: black;
+	background-color: #dae1ed;
+	margin-left: 11em;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px
+}
+
+div.space {
+	font-size: 5px;
+	height: 10px
+}
+
+.error {
+	color: #FF0000;
+}
+
+@font-face {
+	font-family: "Flaticon";
+	src: url("flaticon.eot");
+	src: url("flaticon.eot#iefix") format("embedded-opentype"),
+		url("flaticon.woff") format("woff"), url("flaticon.ttf")
+		format("truetype"), url("flaticon.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after,
+	[class*=" flaticon-"]:after {
+	font-family: Flaticon;
+	font-size: 20px;
+	font-style: normal;
+	margin-left: 10px;
+}
+
+.flaticon-delete81:before {
+	content: "\e000";
+}
+
+.flaticon-magnifier13:before {
+	content: "\e001";
+}
+
+.flaticon-pencil43:before {
+	content: "\e002";
+}
