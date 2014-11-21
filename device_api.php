@@ -47,8 +47,15 @@ function ListDevice($keyword, $column, $sort) {
 	$dbc = mysqli_connect ( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME ) or die ( 'Error to connect MySQL datadase' );
 	
 	$query = "SELECT * FROM device";
-	if (! empty ( $keyword ) && ! empty ( $column )) {
-		$query .= " WHERE $column = '$keyword'";
+	
+	if ( (isset ( $keyword )) && (!empty ( $column ))) {
+		if ( ($column == 'did') || ($column == 'status')) {
+		    $query .= " WHERE $column LIKE '%$keyword%'";
+		}
+		if ( $column == 'addDate' || ($column == 'expireDate')) {
+			$time = explode("&", $keyword);
+			$query .= " WHERE DATE(createDate) BETWEEN '$time[0]' AND '$time[1]'";
+		}
 	}
 	
 	switch ($sort) {

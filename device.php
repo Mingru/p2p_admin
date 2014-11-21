@@ -13,15 +13,34 @@ if (isset ( $_GET ['action'] )) {
 	}
 }
 
-// if ( isset($_POST['submit'])) {
-$keyword = $colnum = "";
-if (! empty ( $_POST ['keyword'] )) {
-	$keyword = test_input ( $_POST ['keyword'] );
+if ( isset($_POST['submit'])) {
+	$keyword = $did = $status = $date_from = $date_to = $colnum = "";
+
+	if ( !empty($_POST['colnum'])) {
+		$colnum = $_POST['colnum'];
+		
+		switch ($colnum) {
+			case 'did':
+				if ( !empty( $_POST['did'])) {
+					$did = test_input($_POST['did']);
+				}
+				$keyword = $did;
+				break;
+			case 'status':
+				$status = $_POST['status'];
+				$keyword = $status;
+				break;
+			case 'addDate' || 'expireDate':
+				$date_from = $_POST['date_from'];
+				$date_to = $_POST['date_to'];
+				$keyword = $date_from . "&" . $date_to;
+				break;
+			default:
+				break;
+		}
+	}	
 }
-if (! empty ( $_POST ['colnum'] )) {
-	$colnum = $_POST ['colnum'];
-}
-// }
+
 function test_input($data) {
 	$data = trim ( $data );
 	$data = stripslashes ( $data );
@@ -29,19 +48,21 @@ function test_input($data) {
 	return $data;
 }
 ?>
-
+<!DOCTYPE html>
+<html>
+<body onload=<?php echo "showQuery('$colnum')"?>>
 <div class="main">
     <?php echo '<h2>' . $page_title . '</h2>';?>
     <form enctype="multipart/form-data" method="post"
 		action="<?php echo $_SERVER['PHP_SELF']; ?>">
-		<table border="0" cellspacing="2" cellpadding="0">
+		<table>
 			<tr>
 				<td>Query by:</td>
 				<td><select name="colnum"
-					onchange="window.location='<?php echo $_SERVER['PHP_SELF']; ?>'">
-						<option value=""></option>
-						<option value="fdid"
-							<?php if( $colnum == 'fdid') echo "selected";?>>FDID</option>
+					onchange="showQuery(this.value)">
+						<option value="">All</option>
+						<option value="did"
+							<?php if( $colnum == 'did') echo "selected";?>>FDID</option>
 						<option value="status"
 							<?php if( $colnum == 'status') echo "selected";?>>Status</option>
 						<option value="addDate"
@@ -50,21 +71,55 @@ function test_input($data) {
 							<?php if( $colnum == 'expireDate') echo "selected";?>>Expire Date</option>
 				</select></td>
 			</tr>
-			<tr>
-				<td>Search:</td>
-				<td>
-                    <?php
-																				// if ( $colnum == 'fdid') {
-																				$input = "<input" . " type=\"text\"" . " name=\"keyword\"" . " size=\"18\"" . " value=\"$keyword\"" . "/>";
-																				// }
-																				echo $input;
-																				?>
-                    
-                    <input type="submit" name="submit" value="&crarr;" />
-				</td>
-			</tr>
-
 		</table>
+		<table>
+            <tr>
+                <td>
+                    <table class="query_tb" id="did_tb" style="display: none">
+                        <tr>
+                            <td>Search:</td>
+                            <td><input type="text" name="did" size="18" value="<?php if( !empty($did)) echo $did;?>"></td>
+                        </tr>
+                    </table>
+                    <table class="query_tb" id="status_tb" style="display: none">
+                        <tr>
+                            <td>Status:</td>
+                            <td>
+                                <input type="radio" name="status" 
+                                <?php if ( isset($status) && $status == 1) echo "checked"; ?>
+                                  value="1"> <span>Activate</span>
+                                <input type="radio" name="status" 
+                                <?php if ( isset($status) && $status == 0) echo "checked"; ?>
+                                 value="0"> <span>Deactivate</span>
+                           </td>
+                        </tr>
+                    </table>
+                    <table class="query_tb" id="addDate_tb" style="display: none">
+                        <tr>
+                            <td>
+                                <label for="date_from">From</label>
+                                <input type="text" class="date_from" name="date_from" size="5">
+                                <label for="date_to">to</label>
+                                <input type="text" class="date_to" name="date_to" size="5">
+                           </td>
+                        </tr>
+                    </table>
+                    <table class="query_tb" id="expireDate_tb" style="display: none">
+                        <tr>
+                            <td>
+                                <label for="date_from">From</label>
+                                <input type="text" class="date_from" name="date_from" size="5">
+                                <label for="date_to">to</label>
+                                <input type="text" class="date_to" name="date_to" size="5">
+                           </td>
+                        </tr>
+                    </table>                    
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit" class="flaticon-magnifier13"></td>
+            </tr>
+        </table>
 	</form>
 	<table border="1" cellspacing="1" cellpadding="1" bgcolor="#ffffff">
 		<tr>
@@ -123,16 +178,16 @@ function test_input($data) {
 	    }
 
 	    $(function() {
-	    	$( "#date_from" ).datepicker({ 
+	    	$( ".date_from" ).datepicker({ 
 		    	dateFormat: 'yy-mm-dd',
 	    		onClose: function( selectedDate ) {
-	    		    $( "#date_to" ).datepicker( "option", "minDate", selectedDate );
+	    		    $( ".date_to" ).datepicker( "option", "minDate", selectedDate );
 	    		}                            
 		    });
-	    	$( "#date_to" ).datepicker({ 
+	    	$( ".date_to" ).datepicker({ 
 		    	dateFormat: 'yy-mm-dd',
 	    		onClose: function( selectedDate ) {
-		            $( "#date_from" ).datepicker( "option", "manDate", selectedDate );
+		            $( ".date_from" ).datepicker( "option", "manDate", selectedDate );
 		        }     		    	
 		    });
 	    });

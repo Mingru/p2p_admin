@@ -94,9 +94,9 @@ function test_input($data) {
                         <tr>
                             <td>
                                 <label for="date_from">From</label>
-                                <input type="text" id="date_from" name="date_from" size="5">
+                                <input type="text" class="date_from" name="date_from" size="5">
                                 <label for="date_to">to</label>
-                                <input type="text" id="date_to" name="date_to" size="5">
+                                <input type="text" class="date_to" name="date_to" size="5">
                            </td>
                         </tr>
                     </table>
@@ -183,16 +183,16 @@ function test_input($data) {
 	    }
 
 	    $(function() {
-	    	$( "#date_from" ).datepicker({ 
+	    	$( ".date_from" ).datepicker({ 
 		    	dateFormat: 'yy-mm-dd',
 	    		onClose: function( selectedDate ) {
-	    		    $( "#date_to" ).datepicker( "option", "minDate", selectedDate );
+	    		    $( ".date_to" ).datepicker( "option", "minDate", selectedDate );
 	    		}                            
 		    });
-	    	$( "#date_to" ).datepicker({ 
+	    	$( ".date_to" ).datepicker({ 
 		    	dateFormat: 'yy-mm-dd',
 	    		onClose: function( selectedDate ) {
-		            $( "#date_from" ).datepicker( "option", "manDate", selectedDate );
+		            $( ".date_from" ).datepicker( "option", "manDate", selectedDate );
 		        }     		    	
 		    });
 	    });
